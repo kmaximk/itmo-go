@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package order_service;
+option go_package = "/order_service";
+
+import "google/protobuf/empty.proto";
+
+service OrderService {
+  rpc ProcessOrders(ProcessOrdersRequest) returns (ProcessOrdersResponse) {}
+  rpc SendOrderDataCallback(SendOrderDataCallbackRequest) returns (google.protobuf.Empty) {}
+}
+
+message SendOrderDataCallbackRequest {
+  int32 order_id = 1;
+  int32 storage_id = 2;
+  int32 pickup_point_id = 3;
+}
+
+message ProcessOrdersRequest {
+  message OrderRequest {
+    int32 order_id = 1;
+    int32 product_id = 2;
+  }
+
+  repeated OrderRequest orders = 1;
+}
+
+message ProcessOrdersResponse {
+  message OrderResponse {
+    int32 order_id = 1;
+    int32 product_id = 2;
+    int32 storage_id = 3;
+    int32 pickup_point_id = 4;
+    bool is_processed = 5;
+  }
+
+  repeated OrderResponse processed_orders = 1;
+}

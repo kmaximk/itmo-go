@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package data_manager;
+
+option go_package = "/data_manager";
+
+import "google/protobuf/empty.proto";
+
+service DataManager {
+  rpc GetOrderDataCallback(GetOrderDataCallbackRequest) returns (google.protobuf.Empty) {}
+  rpc GetOrdersData(google.protobuf.Empty) returns (GetOrdersDataResponse) {}
+}
+
+message GetOrderDataCallbackRequest {
+  int32 order_id = 1;
+}
+
+message GetOrdersDataResponse {
+  message OrderData {
+    int32 order_id = 1;
+    int32 storage_id = 2;
+    int32 pickup_point_id = 3;
+  }
+
+  repeated OrderData orders = 1;
+}

@@ -1,0 +1,28 @@
+version: "3.9"
+
+name: 'go-course-2023-hw8'
+services:
+  order_service:
+    build:
+      context: ./order_service
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8082"
+    depends_on:
+      data_manager:
+        condition: service_started
+    networks:
+      - internal
+
+  data_manager:
+    build:
+      context: ./data_manager
+      dockerfile: Dockerfile
+    ports:
+      - "8086:8082"
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge

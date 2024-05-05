@@ -1,0 +1,7 @@
+go 1.21
+
+use (
+	./data_manager
+	./order_service
+	./integration_tests
+)
